@@ -1,0 +1,200 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tmall.web.evaluate.dao.EvaluateMapper" >
+  <resultMap id="BaseResultMap" type="com.tmall.web.evaluate.model.Evaluate" >
+    <id column="evaluate_id" property="evaluateId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="order_number" property="orderNumber" jdbcType="VARCHAR" />
+    <result column="spec" property="spec" jdbcType="VARCHAR" />
+    <result column="score" property="score" jdbcType="DECIMAL" />
+    <result column="distribution_fee" property="distributionFee" jdbcType="DECIMAL" />
+    <result column="product_evaluate" property="productEvaluate" jdbcType="VARCHAR" />
+    <result column="service_evaluate" property="serviceEvaluate" jdbcType="VARCHAR" />
+    <result column="product_eval_level" property="productEvalLevel" jdbcType="VARCHAR" />
+    <result column="service_eval_level" property="serviceEvalLevel" jdbcType="VARCHAR" />
+    <result column="eval_img_id" property="evalImgId" jdbcType="VARCHAR" />
+    <result column="user_image" property="userImage" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    evaluate_id, user_id, order_number, spec, score, distribution_fee, product_evaluate, 
+    service_evaluate, product_eval_level, service_eval_level, eval_img_id, user_image, 
+    create_time, create_user
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_evaluate
+    where evaluate_id = #{evaluateId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_evaluate
+    where evaluate_id = #{evaluateId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tmall.web.evaluate.model.Evaluate" >
+    insert into tb_evaluate (evaluate_id, user_id, order_number, 
+      spec, score, distribution_fee, 
+      product_evaluate, service_evaluate, product_eval_level, 
+      service_eval_level, eval_img_id, user_image, 
+      create_time, create_user)
+    values (#{evaluateId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{orderNumber,jdbcType=VARCHAR}, 
+      #{spec,jdbcType=VARCHAR}, #{score,jdbcType=DECIMAL}, #{distributionFee,jdbcType=DECIMAL}, 
+      #{productEvaluate,jdbcType=VARCHAR}, #{serviceEvaluate,jdbcType=VARCHAR}, #{productEvalLevel,jdbcType=VARCHAR}, 
+      #{serviceEvalLevel,jdbcType=VARCHAR}, #{evalImgId,jdbcType=VARCHAR}, #{userImage,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tmall.web.evaluate.model.Evaluate" >
+    insert into tb_evaluate
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="evaluateId != null" >
+        evaluate_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="orderNumber != null" >
+        order_number,
+      </if>
+      <if test="spec != null" >
+        spec,
+      </if>
+      <if test="score != null" >
+        score,
+      </if>
+      <if test="distributionFee != null" >
+        distribution_fee,
+      </if>
+      <if test="productEvaluate != null" >
+        product_evaluate,
+      </if>
+      <if test="serviceEvaluate != null" >
+        service_evaluate,
+      </if>
+      <if test="productEvalLevel != null" >
+        product_eval_level,
+      </if>
+      <if test="serviceEvalLevel != null" >
+        service_eval_level,
+      </if>
+      <if test="evalImgId != null" >
+        eval_img_id,
+      </if>
+      <if test="userImage != null" >
+        user_image,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="evaluateId != null" >
+        #{evaluateId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null" >
+        #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="spec != null" >
+        #{spec,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        #{score,jdbcType=DECIMAL},
+      </if>
+      <if test="distributionFee != null" >
+        #{distributionFee,jdbcType=DECIMAL},
+      </if>
+      <if test="productEvaluate != null" >
+        #{productEvaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceEvaluate != null" >
+        #{serviceEvaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="productEvalLevel != null" >
+        #{productEvalLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceEvalLevel != null" >
+        #{serviceEvalLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="evalImgId != null" >
+        #{evalImgId,jdbcType=VARCHAR},
+      </if>
+      <if test="userImage != null" >
+        #{userImage,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tmall.web.evaluate.model.Evaluate" >
+    update tb_evaluate
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="orderNumber != null" >
+        order_number = #{orderNumber,jdbcType=VARCHAR},
+      </if>
+      <if test="spec != null" >
+        spec = #{spec,jdbcType=VARCHAR},
+      </if>
+      <if test="score != null" >
+        score = #{score,jdbcType=DECIMAL},
+      </if>
+      <if test="distributionFee != null" >
+        distribution_fee = #{distributionFee,jdbcType=DECIMAL},
+      </if>
+      <if test="productEvaluate != null" >
+        product_evaluate = #{productEvaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceEvaluate != null" >
+        service_evaluate = #{serviceEvaluate,jdbcType=VARCHAR},
+      </if>
+      <if test="productEvalLevel != null" >
+        product_eval_level = #{productEvalLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="serviceEvalLevel != null" >
+        service_eval_level = #{serviceEvalLevel,jdbcType=VARCHAR},
+      </if>
+      <if test="evalImgId != null" >
+        eval_img_id = #{evalImgId,jdbcType=VARCHAR},
+      </if>
+      <if test="userImage != null" >
+        user_image = #{userImage,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where evaluate_id = #{evaluateId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tmall.web.evaluate.model.Evaluate" >
+    update tb_evaluate
+    set user_id = #{userId,jdbcType=VARCHAR},
+      order_number = #{orderNumber,jdbcType=VARCHAR},
+      spec = #{spec,jdbcType=VARCHAR},
+      score = #{score,jdbcType=DECIMAL},
+      distribution_fee = #{distributionFee,jdbcType=DECIMAL},
+      product_evaluate = #{productEvaluate,jdbcType=VARCHAR},
+      service_evaluate = #{serviceEvaluate,jdbcType=VARCHAR},
+      product_eval_level = #{productEvalLevel,jdbcType=VARCHAR},
+      service_eval_level = #{serviceEvalLevel,jdbcType=VARCHAR},
+      eval_img_id = #{evalImgId,jdbcType=VARCHAR},
+      user_image = #{userImage,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR}
+    where evaluate_id = #{evaluateId,jdbcType=VARCHAR}
+  </update>
+</mapper>

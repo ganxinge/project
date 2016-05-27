@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tmall.web.product.dao.CategorySecondMapper" >
+  <resultMap id="BaseResultMap" type="com.tmall.web.product.model.CategorySecond" >
+    <id column="category_second_id" property="categorySecondId" jdbcType="VARCHAR" />
+    <result column="category_third_id" property="categoryThirdId" jdbcType="VARCHAR" />
+    <result column="category_name" property="categoryName" jdbcType="VARCHAR" />
+    <result column="level" property="level" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    category_second_id, category_third_id, category_name, level, create_time, create_user
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from tb_product_second_category
+    where category_second_id = #{categorySecondId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_product_second_category
+    where category_second_id = #{categorySecondId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tmall.web.product.model.CategorySecond" >
+    insert into tb_product_second_category (category_second_id, category_third_id, 
+      category_name, level, create_time, 
+      create_user)
+    values (#{categorySecondId,jdbcType=VARCHAR}, #{categoryThirdId,jdbcType=VARCHAR}, 
+      #{categoryName,jdbcType=VARCHAR}, #{level,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{createUser,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tmall.web.product.model.CategorySecond" >
+    insert into tb_product_second_category
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="categorySecondId != null" >
+        category_second_id,
+      </if>
+      <if test="categoryThirdId != null" >
+        category_third_id,
+      </if>
+      <if test="categoryName != null" >
+        category_name,
+      </if>
+      <if test="level != null" >
+        level,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="categorySecondId != null" >
+        #{categorySecondId,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryThirdId != null" >
+        #{categoryThirdId,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryName != null" >
+        #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tmall.web.product.model.CategorySecond" >
+    update tb_product_second_category
+    <set >
+      <if test="categoryThirdId != null" >
+        category_third_id = #{categoryThirdId,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryName != null" >
+        category_name = #{categoryName,jdbcType=VARCHAR},
+      </if>
+      <if test="level != null" >
+        level = #{level,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where category_second_id = #{categorySecondId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tmall.web.product.model.CategorySecond" >
+    update tb_product_second_category
+    set category_third_id = #{categoryThirdId,jdbcType=VARCHAR},
+      category_name = #{categoryName,jdbcType=VARCHAR},
+      level = #{level,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR}
+    where category_second_id = #{categorySecondId,jdbcType=VARCHAR}
+  </update>
+</mapper>

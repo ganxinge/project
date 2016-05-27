@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.tmall.web.product.dao.ProductMapper" >
+  <resultMap id="BaseResultMap" type="com.tmall.web.product.model.Product" >
+    <id column="product_id" property="productId" jdbcType="VARCHAR" />
+    <result column="product_numbre" property="productNumbre" jdbcType="VARCHAR" />
+    <result column="product_name" property="productName" jdbcType="VARCHAR" />
+    <result column="image_url" property="imageUrl" jdbcType="VARCHAR" />
+    <result column="price" property="price" jdbcType="DECIMAL" />
+    <result column="discount_price" property="discountPrice" jdbcType="DECIMAL" />
+    <result column="discount" property="discount" jdbcType="DECIMAL" />
+    <result column="is_grounding" property="isGrounding" jdbcType="VARCHAR" />
+    <result column="category_id" property="categoryId" jdbcType="VARCHAR" />
+    <result column="categroy_second_id" property="categroySecondId" jdbcType="VARCHAR" />
+    <result column="categroy_third_id" property="categroyThirdId" jdbcType="VARCHAR" />
+    <result column="evaluate_id" property="evaluateId" jdbcType="VARCHAR" />
+    <result column="brand_name" property="brandName" jdbcType="VARCHAR" />
+    <result column="distribution_fee" property="distributionFee" jdbcType="DECIMAL" />
+    <result column="spec" property="spec" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="create_user" property="createUser" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.tmall.web.product.model.Product" extends="BaseResultMap" >
+    <result column="content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    product_id, product_numbre, product_name, image_url, price, discount_price, discount, 
+    is_grounding, category_id, categroy_second_id, categroy_third_id, evaluate_id, brand_name, 
+    distribution_fee, spec, create_time, create_user
+  </sql>
+  <sql id="Blob_Column_List" >
+    content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from tb_product
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </select>
+  <select id="selectProductPage" resultMap="ResultMapWithBLOBs">
+    select 
+   		*
+    from tb_product
+    
+    limit #{pageNo},#{pageSize}
+  </select>
+  <select id="getCount" resultType="int">
+    select 
+   		count(*)
+    from tb_product
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from tb_product
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.tmall.web.product.model.Product" >
+    insert into tb_product (product_id, product_numbre, product_name, 
+      image_url, price, discount_price, 
+      discount, is_grounding, category_id, 
+      categroy_second_id, categroy_third_id, evaluate_id, 
+      brand_name, distribution_fee, spec, 
+      create_time, create_user, content
+      )
+    values (#{productId,jdbcType=VARCHAR}, #{productNumbre,jdbcType=VARCHAR}, #{productName,jdbcType=VARCHAR}, 
+      #{imageUrl,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{discountPrice,jdbcType=DECIMAL}, 
+      #{discount,jdbcType=DECIMAL}, #{isGrounding,jdbcType=VARCHAR}, #{categoryId,jdbcType=VARCHAR}, 
+      #{categroySecondId,jdbcType=VARCHAR}, #{categroyThirdId,jdbcType=VARCHAR}, #{evaluateId,jdbcType=VARCHAR}, 
+      #{brandName,jdbcType=VARCHAR}, #{distributionFee,jdbcType=DECIMAL}, #{spec,jdbcType=VARCHAR}, 
+      #{createTime,jdbcType=TIMESTAMP}, #{createUser,jdbcType=VARCHAR}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.tmall.web.product.model.Product" >
+    insert into tb_product
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="productNumbre != null" >
+        product_numbre,
+      </if>
+      <if test="productName != null" >
+        product_name,
+      </if>
+      <if test="imageUrl != null" >
+        image_url,
+      </if>
+      <if test="price != null" >
+        price,
+      </if>
+      <if test="discountPrice != null" >
+        discount_price,
+      </if>
+      <if test="discount != null" >
+        discount,
+      </if>
+      <if test="isGrounding != null" >
+        is_grounding,
+      </if>
+      <if test="categoryId != null" >
+        category_id,
+      </if>
+      <if test="categroySecondId != null" >
+        categroy_second_id,
+      </if>
+      <if test="categroyThirdId != null" >
+        categroy_third_id,
+      </if>
+      <if test="evaluateId != null" >
+        evaluate_id,
+      </if>
+      <if test="brandName != null" >
+        brand_name,
+      </if>
+      <if test="distributionFee != null" >
+        distribution_fee,
+      </if>
+      <if test="spec != null" >
+        spec,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="createUser != null" >
+        create_user,
+      </if>
+      <if test="content != null" >
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="productId != null" >
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="productNumbre != null" >
+        #{productNumbre,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null" >
+        #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="discountPrice != null" >
+        #{discountPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discount != null" >
+        #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="isGrounding != null" >
+        #{isGrounding,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null" >
+        #{categoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="categroySecondId != null" >
+        #{categroySecondId,jdbcType=VARCHAR},
+      </if>
+      <if test="categroyThirdId != null" >
+        #{categroyThirdId,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateId != null" >
+        #{evaluateId,jdbcType=VARCHAR},
+      </if>
+      <if test="brandName != null" >
+        #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="distributionFee != null" >
+        #{distributionFee,jdbcType=DECIMAL},
+      </if>
+      <if test="spec != null" >
+        #{spec,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tmall.web.product.model.Product" >
+    update tb_product
+    <set >
+      <if test="productNumbre != null" >
+        product_numbre = #{productNumbre,jdbcType=VARCHAR},
+      </if>
+      <if test="productName != null" >
+        product_name = #{productName,jdbcType=VARCHAR},
+      </if>
+      <if test="imageUrl != null" >
+        image_url = #{imageUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null" >
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="discountPrice != null" >
+        discount_price = #{discountPrice,jdbcType=DECIMAL},
+      </if>
+      <if test="discount != null" >
+        discount = #{discount,jdbcType=DECIMAL},
+      </if>
+      <if test="isGrounding != null" >
+        is_grounding = #{isGrounding,jdbcType=VARCHAR},
+      </if>
+      <if test="categoryId != null" >
+        category_id = #{categoryId,jdbcType=VARCHAR},
+      </if>
+      <if test="categroySecondId != null" >
+        categroy_second_id = #{categroySecondId,jdbcType=VARCHAR},
+      </if>
+      <if test="categroyThirdId != null" >
+        categroy_third_id = #{categroyThirdId,jdbcType=VARCHAR},
+      </if>
+      <if test="evaluateId != null" >
+        evaluate_id = #{evaluateId,jdbcType=VARCHAR},
+      </if>
+      <if test="brandName != null" >
+        brand_name = #{brandName,jdbcType=VARCHAR},
+      </if>
+      <if test="distributionFee != null" >
+        distribution_fee = #{distributionFee,jdbcType=DECIMAL},
+      </if>
+      <if test="spec != null" >
+        spec = #{spec,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="createUser != null" >
+        create_user = #{createUser,jdbcType=VARCHAR},
+      </if>
+      <if test="content != null" >
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.tmall.web.product.model.Product" >
+    update tb_product
+    set product_numbre = #{productNumbre,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      image_url = #{imageUrl,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      discount_price = #{discountPrice,jdbcType=DECIMAL},
+      discount = #{discount,jdbcType=DECIMAL},
+      is_grounding = #{isGrounding,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=VARCHAR},
+      categroy_second_id = #{categroySecondId,jdbcType=VARCHAR},
+      categroy_third_id = #{categroyThirdId,jdbcType=VARCHAR},
+      evaluate_id = #{evaluateId,jdbcType=VARCHAR},
+      brand_name = #{brandName,jdbcType=VARCHAR},
+      distribution_fee = #{distributionFee,jdbcType=DECIMAL},
+      spec = #{spec,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tmall.web.product.model.Product" >
+    update tb_product
+    set product_numbre = #{productNumbre,jdbcType=VARCHAR},
+      product_name = #{productName,jdbcType=VARCHAR},
+      image_url = #{imageUrl,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      discount_price = #{discountPrice,jdbcType=DECIMAL},
+      discount = #{discount,jdbcType=DECIMAL},
+      is_grounding = #{isGrounding,jdbcType=VARCHAR},
+      category_id = #{categoryId,jdbcType=VARCHAR},
+      categroy_second_id = #{categroySecondId,jdbcType=VARCHAR},
+      categroy_third_id = #{categroyThirdId,jdbcType=VARCHAR},
+      evaluate_id = #{evaluateId,jdbcType=VARCHAR},
+      brand_name = #{brandName,jdbcType=VARCHAR},
+      distribution_fee = #{distributionFee,jdbcType=DECIMAL},
+      spec = #{spec,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      create_user = #{createUser,jdbcType=VARCHAR}
+    where product_id = #{productId,jdbcType=VARCHAR}
+  </update>
+</mapper>
